@@ -14,11 +14,28 @@
 
     {% if app.user %}
 
-    {% activity in activities %}
+        {% activity in activities %}
+        {{ activity.name }}
+        {{ activity.startDate }}
+        {{ activity.endDate }}
+        {{ activity.requiredAge }}
+        {{ activity.maxPeople }}
 
-    {% else %}
 
+        {% if is_granted('ROLE_ADMIN') %}
+
+            {{ activity.currentPeople }}
+
+            {% elseif is_granted('ROLE_USER') %}
+
+            <a href {{ path ('activity_register') }} type="button" class="btn btn-primary">S'inscrire à une activité</a>
+
+        {% endif %}
     {% endif %}
+
+    <a href ="{{ path ('app_register') }}">S'inscrire<a>/<a href ="{{ path ('app_login') }}">Se connecter</a> pour accader à la liste des activités
+
+   
     <ul>
         <li>Your controller at <code><a href="{{ '/var/www/html/betoobeApp/betoobeAppTest/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/html/betoobeApp/betoobeAppTest/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
